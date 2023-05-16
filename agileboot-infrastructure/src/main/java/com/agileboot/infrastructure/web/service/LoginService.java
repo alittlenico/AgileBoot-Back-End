@@ -28,6 +28,7 @@ import com.agileboot.orm.common.enums.LoginStatusEnum;
 import com.agileboot.orm.system.entity.SysUserEntity;
 import com.google.code.kaptcha.Producer;
 import java.awt.image.BufferedImage;
+import java.security.PrivateKey;
 import javax.annotation.Resource;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -201,6 +202,15 @@ public class LoginService {
 
     private boolean isCaptchaOn() {
         return Convert.toBool(guavaCache.configCache.get(ConfigKeyEnum.CAPTCHA.getValue()));
+    }
+
+    public static void main(String[] args) {
+            String originalPassword = "gA8LonbonJlxHOW1oqhlfeXr7HkUQxSkRERA6Rm1Q+r70yES16WszsOZaLNKCItxOjrg0irdx6PLnl1F43daTn4bBpBpzhzqKov2yABiSgJx38CfQrrwSB5m0SH4F2o2jBzVGULXV3c5UEbeVUeZ+NPItesm5+54dPYbQj/tl+Y=";
+            byte[] decodedPassword = Base64.decode(originalPassword);
+            String privateKey = AgileBootConfig.getRsaPrivateKey();
+            byte[] decryptedPassword = SecureUtil.rsa(privateKey, null).decrypt(decodedPassword, KeyType.PrivateKey);
+            String decryptedPasswordString = new String(decryptedPassword);
+            System.out.println(decryptedPasswordString);
     }
 
 }

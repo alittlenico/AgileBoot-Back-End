@@ -40,5 +40,4 @@ public class AgileBootConfigTest {
         Assertions.assertEquals(fileBaseDir + "\\upload",
             AgileBootConfig.getFileBaseDir() + File.separator + UploadSubDir.UPLOAD_PATH);
     }
-
 }
